@@ -1,0 +1,35 @@
+{
+  "name": "synergy-logger",
+  "version": "1.0.0",
+  "description": "Application logging utility for the Synergy Framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "synergy",
+    "logging"
+  ],
+  "dependencies": {
+    "debug": "^4.1.1",
+    "dotenv": "^7.0.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2"
+  },
+  "author": "Brett H. Farris",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bretthfarris/synergy-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bretthfarris/synergy-logger/issues"
+  },
+  "homepage": "https://github.com/bretthfarris/synergy-logger#readme"
+}
