@@ -12,35 +12,37 @@ const errorStackTracerFormat = winston.format(info => {
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log` 
-    // - Write all logs error (and below) to `error.log`.
-    //
-    new winston.transports.File({ 
-      filename: process.env.PWD + '/logs/error.log', 
-      level: 'error', 
-      format: winston.format.combine(
-        winston.format.splat(),
-        winston.format.timestamp({
-          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
-        }),
-        errorStackTracerFormat(),
-        winston.format.json()
-      ) 
-    }),
-    new winston.transports.File({ 
-      filename: process.env.PWD + '/logs/combined.log', 
-      format: winston.format.combine(
-        winston.format.timestamp({
-          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
-        }),
-        winston.format.json()
-      ),
-    })
-  ]
+  defaultMeta: { service: 'user-service' }
 });
+
+logger.add(
+  new winston.transports.File({
+    name: 'error-file',
+    filename: process.env.PWD + '/logs/error.log', 
+    level: 'error', 
+    format: winston.format.combine(
+      winston.format.splat(),
+      winston.format.timestamp({
+        format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+      }),
+      errorStackTracerFormat(),
+      winston.format.json()
+    ) 
+  })
+);
+
+logger.add(
+  new winston.transports.File({
+    name: 'combined-file',
+    filename: process.env.PWD + '/logs/combined.log', 
+    format: winston.format.combine(
+      winston.format.timestamp({
+        format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+      }),
+      winston.format.json()
+    ),
+  })
+);
  
 //
 // If we're not in production then log to the `console` with the format:
